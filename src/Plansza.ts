@@ -8,25 +8,66 @@ export class Plansza {
     kafelki: number[] = [];
     timer: number = 0;
     constructor() {
-        this.kafelki = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+        this.kafelki = [
+            1, 2, 3, 4, 
+            5, 6, 7, 8, 
+            9, 10,11,12, 
+            13,14,15, 0
+        ];
     }
 
-    moveKafelek(i: number): boolean {
+    moveKafelek(direction: "L" | "R" | "U" | "D"): boolean {
         const emptyIndex = this.kafelki.indexOf(0);
-        
-        const isAdjacent = 
-            (i === emptyIndex - 1 && i % 4 !== 3) || 
-            (i === emptyIndex + 1 && i % 4 !== 0) || 
-            (i === emptyIndex - 4) ||
-            (i === emptyIndex + 4);        
-        if (isAdjacent) {
-            // Swap the tile with the empty space
-            this.kafelki[emptyIndex] = this.kafelki[i];
-            this.kafelki[i] = 0;
-            return true;
+
+        let i;
+
+        switch(direction) { 
+            case "L": {  
+                if (emptyIndex % 4 === 0) {
+                    return false;
+                }
+
+                i = emptyIndex - 1;
+                
+                break; 
+            } 
+
+            case "R": { 
+                if (emptyIndex % 4 === 3) {
+                    return false;
+                }
+
+                i = emptyIndex + 1;
+
+                break; 
+            } 
+
+            case "U": {
+                if (emptyIndex < 4) {
+                    return false;
+                }
+
+                i = emptyIndex - 4;
+
+                break;
+            }
+
+            case "D": {
+                if (emptyIndex > 11) {
+                    return false;
+                }
+
+                i = emptyIndex + 4;
+
+                break;
+            }
         }
         
-        return false;
+        // Swap the tile with the empty space
+        this.kafelki[emptyIndex] = this.kafelki[i];
+        this.kafelki[i] = 0;
+        return true;
+
     }
 
     draw(p: p5) {
