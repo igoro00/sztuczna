@@ -1,19 +1,23 @@
-import p5 from "p5";
+import p5 from 'p5';
+
+import { Plansza } from './Plansza';
 
 const sketch = (p: p5) => {
-  p.setup = () => {
-    p.createCanvas(p.windowWidth, p.windowHeight);
-  };
+	const plansza = new Plansza();
+	p.setup = () => {
+		p.createCanvas(400, 400);
+		p.createButton('Shuffle').mousePressed(() => {
+			for (let i = 0; i < 1000; i++) {
+				plansza.moveKafelek(Math.floor(Math.random() * 16));
+			}
+		});
+	};
 
-  p.draw = () => {
-    p.background(50);
+	p.draw = () => {
+		p.background(50);
 
-    p.circle(p.width / 2, p.height / 2, p.width / 4);
-  };
-
-  p.windowResized = () => {
-    p.resizeCanvas(p.windowWidth, p.windowHeight);
-  };
+		plansza.draw(p);
+	};
 };
 
 new p5(sketch);
