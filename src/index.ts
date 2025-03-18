@@ -26,6 +26,23 @@ const sketch = (p: p5) => {
 			plansza.moveKafelek("D");
 			// }
 		});
+		p.createButton('Losuj').mousePressed(() => {
+			for (let i = 0; i < 1000; i++) {
+				const r = Math.floor(Math.random()*4)
+				if(r===0){
+					plansza.moveKafelek("U");
+				}
+				if(r===1){
+					plansza.moveKafelek("D")
+				}
+				if(r===2){
+					plansza.moveKafelek("L")
+				}
+				if(r===3){
+					plansza.moveKafelek("R")
+				}
+			}
+		});
 	};
 
 	p.draw = () => {
