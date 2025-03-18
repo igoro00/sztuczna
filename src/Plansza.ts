@@ -4,6 +4,12 @@ import { drawKafelek } from './Kafelek';
 
 const KAFELEK_SIZE = 380/4;
 
+export type Direction = "L" | "R" | "U" | "D"
+export type Coord2D = {
+    x: number,
+    y: number,
+}
+
 export class Plansza {
     kafelki: number[] = [];
     timer: number = 0;
@@ -16,7 +22,29 @@ export class Plansza {
         ];
     }
 
-    moveKafelek(direction: "L" | "R" | "U" | "D"): boolean {
+    score(): number {
+        //manhattan
+        let out = 0;
+        for(let i = 0; i<16; i++){
+            if(this.kafelki[i]===i+1 || (i===15&&this.kafelki[i]===0)){
+                continue;
+            }
+            const idx = this.kafelki.indexOf(i)
+            const currentCoord = this.convert1Dto2DCoord(i);
+            const desiredCoord = this.convert1Dto2DCoord(idx);
+            out += Math.abs(currentCoord.x-desiredCoord.x) + Math.abs(currentCoord.y-desiredCoord.y)
+        }
+        return out;
+    }
+
+    convert1Dto2DCoord(i: number):Coord2D{
+        return {
+            y: Math.floor(i/4),
+            x: i%4,
+        }
+    }
+
+    moveKafelek(direction: Direction): boolean {
         const emptyIndex = this.kafelki.indexOf(0);
 
         let i;

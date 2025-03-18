@@ -35,6 +35,9 @@ const sketch = (p: p5) => {
 				}
 			}
 		});
+		p.createButton("score").mousePressed(()=>{
+			alert(plansza.score())
+		})
 	};
 
 	p.draw = () => {
