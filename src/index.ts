@@ -7,24 +7,16 @@ const sketch = (p: p5) => {
 	p.setup = () => {
 		p.createCanvas(400, 400);
 		p.createButton('Left').mousePressed(() => {
-			// for (let i = 0; i < 1000; i++) {
 			plansza.moveKafelek("L");
-			// }
 		});
 		p.createButton('Right').mousePressed(() => {
-			// for (let i = 0; i < 1000; i++) {
 			plansza.moveKafelek("R");
-			// }
 		});
 		p.createButton('Up').mousePressed(() => {
-			// for (let i = 0; i < 1000; i++) {
 			plansza.moveKafelek("U");
-			// }
 		});
 		p.createButton('Down').mousePressed(() => {
-			// for (let i = 0; i < 1000; i++) {
 			plansza.moveKafelek("D");
-			// }
 		});
 		p.createButton('Losuj').mousePressed(() => {
 			for (let i = 0; i < 1000; i++) {
