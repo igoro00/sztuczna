@@ -12,6 +12,7 @@ export type Coord2D = {
 
 export class Plansza {
     kafelki: number[] = [];
+    perfectState: number[] = [];
     timer: number = 0;
     constructor() {
         this.kafelki = [
@@ -20,19 +21,22 @@ export class Plansza {
             9, 10,11,12, 
             13,14,15, 0
         ];
+        this.perfectState = [...this.kafelki]
     }
 
     score(): number {
-        //manhattan
         let out = 0;
         for(let i = 0; i<16; i++){
-            if(this.kafelki[i]===i+1 || (i===15&&this.kafelki[i]===0)){
+            if(this.kafelki[i]===this.perfectState[i]){
                 continue;
             }
-            const idx = this.kafelki.indexOf(i)
+            const shouldBeAt = this.perfectState.indexOf(this.kafelki[i])
             const currentCoord = this.convert1Dto2DCoord(i);
-            const desiredCoord = this.convert1Dto2DCoord(idx);
-            out += Math.abs(currentCoord.x-desiredCoord.x) + Math.abs(currentCoord.y-desiredCoord.y)
+            const desiredCoord = this.convert1Dto2DCoord(shouldBeAt);
+            
+            //manhattan
+            out += Math.abs(currentCoord.x-desiredCoord.x) + 
+                Math.abs(currentCoord.y-desiredCoord.y)
         }
         return out;
     }
