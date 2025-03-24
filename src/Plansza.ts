@@ -9,6 +9,7 @@ export type Coord2D = {
     x: number,
     y: number,
 }
+
 interface DirDict {
     "R": Direction,
     "L": Direction,
@@ -31,6 +32,7 @@ export class Plansza {
     kafelki: number[] = [];
     perfectState: number[] = [];
     timer: number = 0;
+  
     constructor(size: Coord2D, startingState: number[]) {
         this.size = {...size}
         this.kafelki = [...startingState];
@@ -47,6 +49,7 @@ export class Plansza {
 
     score(): number {
         let out = 0;
+
         for(let i = 0; i<this.size.x*this.size.y; i++){
             if(this.kafelki[i]===this.perfectState[i]){
                 continue;
@@ -64,6 +67,7 @@ export class Plansza {
 
     convert1Dto2DCoord(i: number):Coord2D{
         return {
+
             y: Math.floor(i/this.size.x),
             x: i%this.size.y,
         }
@@ -75,6 +79,7 @@ export class Plansza {
 
     getLegalMoves(): Direction[] {
         const out:Direction[] = [];
+
         const emptyIndex = this.kafelki.indexOf(0);
         //L
         if (emptyIndex % this.size.x) {
