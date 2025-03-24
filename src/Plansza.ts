@@ -10,23 +10,47 @@ export type Coord2D = {
     y: number,
 }
 
+interface DirDict {
+    "R": Direction,
+    "L": Direction,
+    "U": Direction,
+    "D": Direction,
+}
+
+export function getOppositeMove(m: Direction):Direction {
+    const oppositeDict: DirDict =  {
+        "R":"L",
+        "L":"R",
+        "U":"D",
+        "D":"U"
+    }
+    return oppositeDict[m]
+}
+
 export class Plansza {
+    size: Coord2D;
     kafelki: number[] = [];
     perfectState: number[] = [];
     timer: number = 0;
-    constructor() {
-        this.kafelki = [
-            1, 2, 3, 4, 
-            5, 6, 7, 8, 
-            9, 10,11,12, 
-            13,14,15, 0
-        ];
-        this.perfectState = [...this.kafelki]
+  
+    constructor(size: Coord2D, startingState: number[]) {
+        this.size = {...size}
+        this.kafelki = [...startingState];
+        this.perfectState = [];
+        for(let i = 1; i<size.x*size.y; i++){
+            this.perfectState.push(i);
+        }
+        this.perfectState.push(0);
+    }
+
+    isSolved(): boolean {
+        return this.kafelki.every((v, i) => v === this.perfectState[i]);
     }
 
     score(): number {
         let out = 0;
-        for(let i = 0; i<16; i++){
+
+        for(let i = 0; i<this.size.x*this.size.y; i++){
             if(this.kafelki[i]===this.perfectState[i]){
                 continue;
             }
@@ -43,54 +67,67 @@ export class Plansza {
 
     convert1Dto2DCoord(i: number):Coord2D{
         return {
-            y: Math.floor(i/4),
-            x: i%4,
+
+            y: Math.floor(i/this.size.x),
+            x: i%this.size.y,
         }
+    }
+
+    applyMoves(moves:Direction[]) { 
+        moves.forEach(m=>this.moveKafelek(m))
+    }
+
+    getLegalMoves(): Direction[] {
+        const out:Direction[] = [];
+
+        const emptyIndex = this.kafelki.indexOf(0);
+        //L
+        if (emptyIndex % this.size.x) {
+            out.push("L");
+        }
+
+        //R
+        if (emptyIndex % this.size.x !== this.size.x-1) {
+            out.push("R")
+        }
+
+        //U
+        if (emptyIndex >= this.size.x) {
+            out.push("U")
+        }
+
+        //D
+        if (emptyIndex <= this.size.x*(this.size.y-1)) {
+            out.push("D")
+        }
+
+        return out;
     }
 
     moveKafelek(direction: Direction): boolean {
         const emptyIndex = this.kafelki.indexOf(0);
+        // const legalMoves = this.getLegalMoves()
+        // if(!legalMoves.includes(direction)){
+        //     return false;
+        // }
 
         let i;
 
         switch(direction) { 
             case "L": {  
-                if (emptyIndex % 4 === 0) {
-                    return false;
-                }
-
-                i = emptyIndex - 1;
-                
+                i = emptyIndex - 1;           
                 break; 
             } 
-
             case "R": { 
-                if (emptyIndex % 4 === 3) {
-                    return false;
-                }
-
                 i = emptyIndex + 1;
-
                 break; 
             } 
-
             case "U": {
-                if (emptyIndex < 4) {
-                    return false;
-                }
-
-                i = emptyIndex - 4;
-
+                i = emptyIndex - this.size.x;
                 break;
             }
-
             case "D": {
-                if (emptyIndex > 11) {
-                    return false;
-                }
-
-                i = emptyIndex + 4;
-
+                i = emptyIndex + this.size.x;
                 break;
             }
         }
@@ -103,6 +140,9 @@ export class Plansza {
     }
 
     draw(p: p5) {
+        if(!window){
+            throw new Error("You can call this function only in browser context")
+        }
         p.strokeWeight(2);
         p.stroke("black");
         p.fill("#e6b5a3");
@@ -117,5 +157,15 @@ export class Plansza {
             p.pop();
         });
         p.pop();
+    }
+    drawAscii():string{
+        let out = "";
+        for(let j = 0; j<this.size.y; j++){
+            for(let i = 0; i<this.size.x; i++){
+                out += this.kafelki[(j*this.size.x) + i] + " ";
+            }
+            out+="\n" 
+        }
+        return out;
     }
 }

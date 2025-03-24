@@ -7,15 +7,18 @@
     "start": "vite",
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "solve": "bun src/Solver.ts"
   },
   "devDependencies": {
+    "@types/bun": "^1.2.5",
     "@types/p5": "^1.7.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   },
   "dependencies": {
     "@igoro00/prettier-config": "^1.2.0",
+    "glob": "^11.0.1",
     "p5": "^1.7.0"
   }
 }
