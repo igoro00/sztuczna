@@ -41,6 +41,10 @@ export class Plansza {
         this.perfectState.push(0);
     }
 
+    isSolved(): boolean {
+        return this.kafelki.every((v, i) => v === this.perfectState[i]);
+    }
+
     score(): number {
         let out = 0;
         for(let i = 0; i<this.size.x*this.size.y; i++){
@@ -97,10 +101,10 @@ export class Plansza {
 
     moveKafelek(direction: Direction): boolean {
         const emptyIndex = this.kafelki.indexOf(0);
-        const legalMoves = this.getLegalMoves()
-        if(!legalMoves.includes(direction)){
-            return false;
-        }
+        // const legalMoves = this.getLegalMoves()
+        // if(!legalMoves.includes(direction)){
+        //     return false;
+        // }
 
         let i;
 
