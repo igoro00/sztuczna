@@ -4,24 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>p5 sketch</title>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    
     <style>
       *{
-        font-family: sans;
-        box-sizing: content-box;
+        font-family: monospace, sans;
+        /* box-sizing: content-box; */
       }
+
+      body {
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        justify-self: center;
+        width: 100%;
+        max-width: 100vw;
+        overflow: hidden;
+      }
+
       canvas {
         display: block;
       }
+
       #boardContainer {
-        /* width: 800px; */
-        /* height: 800px; */
         padding: 10px;
         display: flex;
         flex-wrap: wrap;
         justify-content: start;
         background-color: #969696;
       }
+
       .piece {
         width: 150px;
         height: 150px;
@@ -32,23 +44,134 @@
         line-height: 150px;
         font-size: 64px;
       }
+
       .zero {
         color:transparent;
         background-color: red;
       }
-      body { 
-        display: flex;
-        flex-direction: row;
-        gap: 50px;
-      }
-      aside {
-        padding-top: 50px;
-        padding-right: 50px;
+
+      aside, main {
+        width: 100%;
+        padding: 20px;
+        /* padding-right: 50px; */
         flex: 1;
       }
+
       main {
         flex: 0;
       }
+
+      .drop-zone {
+            width: 100%;
+            height: 200px;
+            /* border: 2px dashed #4a90e2; */
+            border: 1.5px solid black;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+            margin: 20px auto;
+        }
+
+        .drop-zone:hover {
+            background-color: #e9ecef;
+            border-color: #357abd;
+        }
+
+        .drop-zone.dragover {
+            background-color: #e3f2fd;
+            border-color: #2196f3;
+        }
+
+        .drop-zone i {
+            font-size: 48px;
+            color: #3c7cc6;
+            margin-bottom: 10px;
+        }
+
+        .drop-zone p {
+            margin: 0;
+            color: #666;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .file-info {
+            text-align: center;
+            margin-top: 10px;
+            color: #666;
+        }
+
+        select, input, button {
+          border: 0.5px solid #4a90e2;
+          width: 120px;
+          height: 30px; 
+          font-size: larger;
+        }
+        
+        #selection {
+          display: flex;
+          gap: 20px;
+          margin-top: 20px;
+        }
+
+        ul {
+          list-style-type: none;
+          text-align: left;
+          margin: 0;
+          padding: 0;
+          margin-top: 10px;
+        }
+        label {
+          position: relative;
+          left: -12px;
+          bottom: -15px;
+        }
+
+        aside, main {
+            padding: 20px;
+            min-width: 0; 
+        }
+
+        main {
+            flex: 0 1 auto; 
+        }
+
+        aside {
+            flex: 1 1 auto;
+        }
+
+        img {
+          fill: #2196f3;
+        }
+
+        h2 {
+          margin: 0;
+          padding: 0;
+          text-align: left;
+          line-height: 1;
+        }
+
+        #start {
+          margin-left: auto;
+        }
+
+        #fileList {
+          max-height: 354px; 
+          overflow-y: auto; 
+          /* border: 1px solid #cccccc00; */
+          background-color: #f9f9f9;
+        }
+
+
+
     </style>
   </head>
   <body>
@@ -75,35 +198,42 @@
       </div>
     </main>
     <aside>
-      <h2>Zip ze startowymi planszami</h2>
+      <h2>Dodaj .zip ze startowymi planszami</h2>
 
-      <input id="fileInput" type="file"/>
+      <div class="drop-zone" onclick="document.getElementById('fileInput').click()">
+        <i class="fas fa-cloud-upload-alt upload-icon"></i>
 
-      <select id="algorithm">
-        <option value="astr">A*</option>
-        <option value="bfs">BFS</option>
-        <option value="dfs">DFS</option>
-      </select>
-      <select id="permutation">
-        <option value="RDUL">R D U L</option>
-        <option value="RDLU">R D L U</option>
-        <option value="DRUL">D R U L</option>
-        <option value="DRLU">D R L U</option>
-        <option value="LUDR">L U D R</option>
-        <option value="LURD">L U R D</option>
-        <option value="ULDR">U L D R</option>
-        <option value="ULRD">U L R D</option>
-      </select>
-      <select id="heuristic">
-        <option value="manh">Manhattan</option>
-        <option value="hamm">Hamming</option>
-      </select>
-      <input id="wait" type="number" value="10"/><label for="wait">ms</label>
+        <p>Przeciągnij plik lub kliknij aby wybrać</p>
+        <input id="fileInput" type="file"/>
+      </div>
 
-      <button id="start" disabled>Start</button>
-      <ul id="fileList"></ul>
-
+    <div class="file-info"></div>
+      <div id="selection">
+        <select id="algorithm">
+          <option value="astr">A*</option>
+          <option value="bfs">BFS</option>
+          <option value="dfs">DFS</option>
+        </select>
+        <select id="permutation">
+          <option value="RDUL">R D U L</option>
+          <option value="RDLU">R D L U</option>
+          <option value="DRUL">D R U L</option>
+          <option value="DRLU">D R L U</option>
+          <option value="LUDR">L U D R</option>
+          <option value="LURD">L U R D</option>
+          <option value="ULDR">U L D R</option>
+          <option value="ULRD">U L R D</option>
+        </select>
+        <select id="heuristic">
+          <option value="manh">Manhattan</option>
+          <option value="hamm">Hamming</option>
+        </select>
+        <input id="wait" type="number" value="10"/><label for="wait">ms</label>
+  
+        <button id="start" disabled>Start</button>
+      </div>
+        <ul id="fileList"></ul>
     </aside>
-    <script type="module" src="/src/index.ts"></script>
+  <script type="module" src="/src/index.ts"></script>
   </body>
 </html>

@@ -42,7 +42,7 @@ export const dfs: AlgorithmFunc = async (
 				time: performance.now() - startTime,
 			}
 		}
-		if (moves.length >= (changeBoard ? 7 : 20)) {
+		if (moves.length >= 20) {
 			continue;
 		}
 		const legalMoves = board.getLegalMoves();
