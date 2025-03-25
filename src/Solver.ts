@@ -1,5 +1,5 @@
-import { bfs } from "./bfs";
-import { Direction, Plansza } from "./Plansza";
+import { bfs } from './algos/bfs';
+import { Direction } from './types';
 
 const algo = process.argv[2];
 const permutation = process.argv[3].split("") as Direction[];
@@ -19,5 +19,3 @@ const p = inputFile
     .map(elem=>parseInt(elem));
 
 console.log(bfs(p,size,permutation))
-
-export {}

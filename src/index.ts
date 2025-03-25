@@ -1,50 +1,115 @@
-import p5 from 'p5';
+import JSZip from 'jszip';
 
+import { Algorithms } from './algos';
 import { Plansza } from './Plansza';
+import {
+  showMessage,
+  showMoves,
+} from './showMessage';
+import {
+  Algorithm,
+  Direction,
+  F,
+  Heuristic,
+} from './types';
+import { sleep } from './utils';
 
-const sketch = (p: p5) => {
-	const plansza = new Plansza();
-	p.setup = () => {
-		p.createCanvas(400, 400);
-		p.createButton('Left').mousePressed(() => {
-			plansza.moveKafelek("L");
-		});
-		p.createButton('Right').mousePressed(() => {
-			plansza.moveKafelek("R");
-		});
-		p.createButton('Up').mousePressed(() => {
-			plansza.moveKafelek("U");
-		});
-		p.createButton('Down').mousePressed(() => {
-			plansza.moveKafelek("D");
-		});
-		p.createButton('Losuj').mousePressed(() => {
-			for (let i = 0; i < 1000; i++) {
-				const r = Math.floor(Math.random()*4)
-				if(r===0){
-					plansza.moveKafelek("U");
-				}
-				if(r===1){
-					plansza.moveKafelek("D")
-				}
-				if(r===2){
-					plansza.moveKafelek("L")
-				}
-				if(r===3){
-					plansza.moveKafelek("R")
-				}
-			}
-		});
-		p.createButton("score").mousePressed(()=>{
-			alert(plansza.score())
-		})
-	};
+let plansza = new Plansza({x:4,y:4}, [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0]);
+let oldPlansza = plansza;
+plansza.draw();
+function animationFrame (){
+    if(!oldPlansza.compare(plansza)){
+        plansza.draw();
+    }
+    oldPlansza = plansza;
+    requestAnimationFrame(animationFrame);
+}
+requestAnimationFrame(animationFrame);
 
-	p.draw = () => {
-		p.background(50);
 
-		plansza.draw(p);
-	};
-};
 
-new p5(sketch);
+let files:F[] = [];
+let algo:Algorithm = "astr"
+let permutation:Direction[] = ["R", "D", "U", "L"];
+let heuristic: Heuristic = "manh";
+let waitBetweenMoves: number = 10;
+
+async function changePlansza(newPlansza: Plansza, moves: Direction[]){
+    plansza = newPlansza;
+    showMoves(moves);
+    await sleep(waitBetweenMoves);
+}
+
+const input = document.getElementById("fileInput") as HTMLInputElement;
+const fileList = document.getElementById("fileList") as HTMLUListElement;
+const startButton = document.getElementById("start") as HTMLButtonElement;
+const algoSelect = document.getElementById("algorithm") as HTMLSelectElement;
+const permutationSelect = document.getElementById("permutation") as HTMLSelectElement;
+const heuristicSelect = document.getElementById("heuristic") as HTMLSelectElement;
+const waitInput = document.getElementById("wait") as HTMLInputElement;
+
+algoSelect.addEventListener("change", () => {
+    algo = algoSelect.value as Algorithm;
+    heuristicSelect.disabled = algo !== "astr";
+    permutationSelect.disabled = algo === "astr";
+});
+
+permutationSelect.addEventListener("change", () => {
+    permutation = permutationSelect.value.split("") as Direction[];
+});
+
+heuristicSelect.addEventListener("change", () => {
+    heuristic = heuristicSelect.value as Heuristic;
+});
+
+waitInput.addEventListener("change", () => {
+    waitBetweenMoves = parseInt(waitInput.value);
+});
+
+input.addEventListener("change", async (event) => {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+    
+    const zip = new JSZip();
+    const zipContents = await zip.loadAsync(file);
+    fileList.innerHTML = "";
+    files = [];
+    startButton.disabled = true;
+    
+    for (const [filename, fileData] of Object.entries(zipContents.files)) {
+        if (!fileData.dir) {
+            const content = await fileData.async("text");
+            files.unshift({filename, content});
+        }
+    }
+    files.forEach(file => {
+        startButton.disabled = false;
+        const li = document.createElement("li");
+        li.textContent = file.filename;
+        fileList.appendChild(li);
+    });
+});
+
+startButton.addEventListener("click", async () => {
+    (async ()=>{
+        startButton.disabled = true;
+        startButton.style.cursor = "wait"
+        for(const file of files) {
+            const size = {
+                x: parseInt(file.content.split("\n")[0].split(" ")[0]),
+                y: parseInt(file.content.split("\n")[0].split(" ")[1])
+            };
+            const p = file.content
+                .split("\n")
+                .slice(1, -1)
+                .map(elem => elem.split(" "))
+                .flat()
+                .map(elem => parseInt(elem));
+
+            showMessage(algo, file.filename, permutation.join(""));
+            await Algorithms[algo](p, size, permutation, heuristic, changePlansza);
+        }
+        startButton.disabled = false
+        startButton.style.cursor = "default"
+    })();
+});

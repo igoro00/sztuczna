@@ -19,6 +19,7 @@
   "dependencies": {
     "@igoro00/prettier-config": "^1.2.0",
     "glob": "^11.0.1",
+    "jszip": "^3.10.1",
     "p5": "^1.7.0"
   }
 }
