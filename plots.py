@@ -333,150 +333,150 @@ for depth, heur_states in avg_time_astr.items():
         print(f"  Heurystyka {heur}: {avg_time}")
 
 
-# gp.plot_all_strategies(
-#     all_avg_len_bfs,
-#     all_avg_len_dfs,
-#     all_avg_len_astr,
-#     "Średnia długość rozwiązania",
-#     "Głębokość",
-#     "Średnia długość rozwiązania",
-# )
-# gp.plot_permutations(
-#     avg_len_bfs,
-#     "Średnia długość rozwiązania dla BFS",
-#     "Głębokość rozwiązania",
-#     "Średnia długość rozwiązania",
-# )
-# gp.plot_permutations(
-#     avg_len_dfs,
-#     "Średnia długość rozwiązania dla DFS",
-#     "Głębokość rozwiązania",
-#     "Średnia długość rozwiązania",
-# )
-# gp.plot_permutations(
-#     avg_len_astr,
-#     "Średnia długość rozwiązania dla A*",
-#     "Głębokość rozwiązania",
-#     "Średnia długość rozwiązania",
-# )
+gp.plot_all_strategies(
+    all_avg_len_bfs,
+    all_avg_len_dfs,
+    all_avg_len_astr,
+    "Średnia długość rozwiązania",
+    "Głębokość",
+    "Średnia długość rozwiązania",
+)
+gp.plot_permutations(
+    avg_len_bfs,
+    "Średnia długość rozwiązania dla BFS",
+    "Głębokość rozwiązania",
+    "Średnia długość rozwiązania",
+)
+gp.plot_permutations(
+    avg_len_dfs,
+    "Średnia długość rozwiązania dla DFS",
+    "Głębokość rozwiązania",
+    "Średnia długość rozwiązania",
+)
+gp.plot_permutations(
+    avg_len_astr,
+    "Średnia długość rozwiązania dla A*",
+    "Głębokość rozwiązania",
+    "Średnia długość rozwiązania",
+)
 
 
-# gp.plot_all_strategies(
-#     all_avg_states_bfs,
-#     all_avg_states_dfs,
-#     all_avg_states_astr,
-#     "Średnia liczba odwiedzonych stanów dla wszystkich strategii",
-#     "Głębokość rozwiązania",
-#     "Średnia liczba odwiedzonych stanów",
-#     True
-# )
-# gp.plot_permutations(
-#     avg_states_bfs,
-#     "Średnia liczba odwiedzonych stanów dla BFS",
-#     "Głębokość rozwiązania",
-#     "Średnia liczba odwiedzonych stanów",
-#     True #????
-# )
-# gp.plot_permutations(
-#     avg_states_dfs,
-#     "Średnia liczba odwiedzonych stanów dla DFS",
-#     "Głębokość rozwiązania",
-#     "Średnia liczba odwiedzonych stanów",
-#     True #????
-# )
-# gp.plot_permutations(
-#     avg_states_astr,
-#     "Średnia liczba odwiedzonych stanów dla A*",
-#     "Głębokość rozwiązania",
-#     "Średnia liczba odwiedzonych stanów",
-# )
+gp.plot_all_strategies(
+    all_avg_states_bfs,
+    all_avg_states_dfs,
+    all_avg_states_astr,
+    "Średnia liczba odwiedzonych stanów dla wszystkich strategii",
+    "Głębokość rozwiązania",
+    "Średnia liczba odwiedzonych stanów",
+    True
+)
+gp.plot_permutations(
+    avg_states_bfs,
+    "Średnia liczba odwiedzonych stanów dla BFS",
+    "Głębokość rozwiązania",
+    "Średnia liczba odwiedzonych stanów",
+    True #????
+)
+gp.plot_permutations(
+    avg_states_dfs,
+    "Średnia liczba odwiedzonych stanów dla DFS",
+    "Głębokość rozwiązania",
+    "Średnia liczba odwiedzonych stanów",
+    True #????
+)
+gp.plot_permutations(
+    avg_states_astr,
+    "Średnia liczba odwiedzonych stanów dla A*",
+    "Głębokość rozwiązania",
+    "Średnia liczba odwiedzonych stanów",
+)
 
 
-# gp.plot_all_strategies(
-#     all_avg_proc_bfs,
-#     all_avg_proc_dfs,
-#     all_avg_proc_astr,
-#     "Średnia liczba przeprocesowanych stanów dla wszystkich strategii",
-#     "Głębokość rozwiązania",
-#     "Średnia liczba przeprocesowanych stanów",
-#     True
-# )
-# gp.plot_permutations(
-#     avg_proc_bfs,
-#     "Średnia liczba przeprocesowanych stanów dla BFS",
-#     "Głębokość rozwiązania",
-#     "Średnia liczba przeprocesowanych stanów",
-#     True #????
-# )
-# gp.plot_permutations(
-#     avg_proc_dfs,
-#     "Średnia liczba przeprocesowanych stanów dla DFS",
-#     "Głębokość rozwiązania",
-#     "Średnia liczba przeprocesowanych stanów",
-#     True, #????
-# )
-# gp.plot_permutations(
-#     avg_proc_astr,
-#     "Średnia liczba przeprocesowanych stanów dla A*",
-#     "Głębokość rozwiązania",
-#     "Średnia liczba przeprocesowanych stanów",
-# )
+gp.plot_all_strategies(
+    all_avg_proc_bfs,
+    all_avg_proc_dfs,
+    all_avg_proc_astr,
+    "Średnia liczba przeprocesowanych stanów dla wszystkich strategii",
+    "Głębokość rozwiązania",
+    "Średnia liczba przeprocesowanych stanów",
+    True
+)
+gp.plot_permutations(
+    avg_proc_bfs,
+    "Średnia liczba przeprocesowanych stanów dla BFS",
+    "Głębokość rozwiązania",
+    "Średnia liczba przeprocesowanych stanów",
+    True #????
+)
+gp.plot_permutations(
+    avg_proc_dfs,
+    "Średnia liczba przeprocesowanych stanów dla DFS",
+    "Głębokość rozwiązania",
+    "Średnia liczba przeprocesowanych stanów",
+    True, #????
+)
+gp.plot_permutations(
+    avg_proc_astr,
+    "Średnia liczba przeprocesowanych stanów dla A*",
+    "Głębokość rozwiązania",
+    "Średnia liczba przeprocesowanych stanów",
+)
 
 
-# gp.plot_all_strategies(
-#     all_avg_max_depth_bfs,
-#     all_avg_max_depth_dfs,
-#     all_avg_max_depth_astr,
-#     "Średnia maksymalna rekursja dla wszystkich strategii",
-#     "Głębokość rozwiązania",
-#     "Średnia maksymalna rekursja",
-# )
-# gp.plot_permutations(
-#     avg_max_depth_bfs,
-#     "Średnia maksymalna rekursja dla BFS",
-#     "Głębokość rozwiązania",
-#     "Średnia maksymalna rekursja",
-# )
-# gp.plot_permutations(
-#     avg_max_depth_dfs,
-#     "Średnia maksymalna rekursja dla DFS",
-#     "Głębokość rozwiązania",
-#     "Średnia maksymalna rekursja",
-# )
-# gp.plot_permutations(
-#     avg_max_depth_astr,
-#     "Średnia maksymalna rekursja dla A*",
-#     "Głębokość rozwiązania",
-#     "Średnia maksymalna rekursja",
-# )
+gp.plot_all_strategies(
+    all_avg_max_depth_bfs,
+    all_avg_max_depth_dfs,
+    all_avg_max_depth_astr,
+    "Średnia maksymalna rekursja dla wszystkich strategii",
+    "Głębokość rozwiązania",
+    "Średnia maksymalna rekursja",
+)
+gp.plot_permutations(
+    avg_max_depth_bfs,
+    "Średnia maksymalna rekursja dla BFS",
+    "Głębokość rozwiązania",
+    "Średnia maksymalna rekursja",
+)
+gp.plot_permutations(
+    avg_max_depth_dfs,
+    "Średnia maksymalna rekursja dla DFS",
+    "Głębokość rozwiązania",
+    "Średnia maksymalna rekursja",
+)
+gp.plot_permutations(
+    avg_max_depth_astr,
+    "Średnia maksymalna rekursja dla A*",
+    "Głębokość rozwiązania",
+    "Średnia maksymalna rekursja",
+)
 
 
-# gp.plot_all_strategies(
-#     all_avg_time_bfs,
-#     all_avg_time_dfs,
-#     all_avg_time_astr,
-#     "Średni czas przetwarzania dla wszystkich strategii",
-#     "Głębokość rozwiązania",
-#     "Średni czas przetwarzania [ms]",
-#     True
-# )
-# gp.plot_permutations(
-#     avg_time_bfs,
-#     "Średni czas przetwarzania dla BFS",
-#     "Głębokość rozwiązania",
-#     "Średni czas przetwarzania [ms]",
-#     True
-# )
-# gp.plot_permutations(
-#     avg_time_dfs,
-#     "Średni czas przetwarzania dla DFS",
-#     "Głębokość rozwiązania",
-#     "Średni czas przetwarzania [ms]",
-#     True
-# )
-# gp.plot_permutations(
-#     avg_time_astr,
-#     "Średni czas przetwarzania dla A*",
-#     "Głębokość rozwiązania",
-#     "Średni czas przetwarzania [ms]",
-# )
+gp.plot_all_strategies(
+    all_avg_time_bfs,
+    all_avg_time_dfs,
+    all_avg_time_astr,
+    "Średni czas przetwarzania dla wszystkich strategii",
+    "Głębokość rozwiązania",
+    "Średni czas przetwarzania [ms]",
+    True
+)
+gp.plot_permutations(
+    avg_time_bfs,
+    "Średni czas przetwarzania dla BFS",
+    "Głębokość rozwiązania",
+    "Średni czas przetwarzania [ms]",
+    False
+)
+gp.plot_permutations(
+    avg_time_dfs,
+    "Średni czas przetwarzania dla DFS",
+    "Głębokość rozwiązania",
+    "Średni czas przetwarzania [ms]",
+    False
+)
+gp.plot_permutations(
+    avg_time_astr,
+    "Średni czas przetwarzania dla A*",
+    "Głębokość rozwiązania",
+    "Średni czas przetwarzania [ms]",
+)

@@ -1,8 +1,6 @@
 from matplotlib import pyplot as plt
 import seaborn as sns
 import pandas as pd
-import numpy as np
-
 
 def plot_all_strategies(
     all_bfs, all_dfs, all_astr, title, xlabel, ylabel, logarithmic=False
@@ -36,7 +34,8 @@ def plot_all_strategies(
     if logarithmic:
         plt.yscale("log")
 
-    plt.show()
+    # plt.show()
+    plt.savefig("graphs/"+title+".png")
 
 
 def plot_permutations(arr, title, xlabel, ylabel, logarithmic=False):
@@ -72,4 +71,5 @@ def plot_permutations(arr, title, xlabel, ylabel, logarithmic=False):
         plt.yscale("log")
 
     # Pokazanie wykresu
-    plt.show()
+    # plt.show()
+    plt.savefig("graphs/"+title+".png")

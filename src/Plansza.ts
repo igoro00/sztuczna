@@ -20,6 +20,7 @@ export class Plansza {
 	kafelki: number[] = [];
 	perfectState: number[] = [];
 	timer: number = 0;
+	noOfMoves: number = 0;
 
 	constructor(size: Coord2D, startingState: number[]) {
 		this.size = { ...size };
@@ -60,7 +61,7 @@ export class Plansza {
                 out++;
             }
         }
-        return out;
+        return out+this.noOfMoves;
     }
 
     manhattanScore(): number {
@@ -79,7 +80,7 @@ export class Plansza {
 				Math.abs(currentCoord.x - desiredCoord.x) +
 				Math.abs(currentCoord.y - desiredCoord.y);
 		}
-		return out;
+		return out+this.noOfMoves;
     }
 
 	convert1Dto2DCoord(i: number): Coord2D {
@@ -126,6 +127,8 @@ export class Plansza {
 		// if(!legalMoves.includes(direction)){
 		//     return false;
 		// }
+
+		this.noOfMoves++;
 
 		let i;
 
