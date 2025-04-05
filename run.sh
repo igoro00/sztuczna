@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ ! -d "puzzle" ]; then
+  echo "puzzle directory does not exist."
+  exit
+fi
+
 rm -rf stats
 rm -rf solutions
 mkdir -p stats

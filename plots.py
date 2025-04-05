@@ -375,7 +375,7 @@ gp.plot_permutations(
     "Średnia liczba odwiedzonych stanów dla BFS",
     "Głębokość rozwiązania",
     "Średnia liczba odwiedzonych stanów",
-    True #????
+    False #????
 )
 gp.plot_permutations(
     avg_states_dfs,
@@ -406,7 +406,7 @@ gp.plot_permutations(
     "Średnia liczba przeprocesowanych stanów dla BFS",
     "Głębokość rozwiązania",
     "Średnia liczba przeprocesowanych stanów",
-    True #????
+    False #????
 )
 gp.plot_permutations(
     avg_proc_dfs,
@@ -472,7 +472,7 @@ gp.plot_permutations(
     "Średni czas przetwarzania dla DFS",
     "Głębokość rozwiązania",
     "Średni czas przetwarzania [ms]",
-    False
+    True
 )
 gp.plot_permutations(
     avg_time_astr,
