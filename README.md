@@ -1,40 +1,13 @@
-# plik wejściowy
+# COMMITOWANIE
 
-- rozmiar
-- plansza
+PRZED KAŻDYM COMMITEM URUCHOM TĄ KOMENDĘ!
 
-np.
-```
-4 4
-1 2 3 4
-5 6 7 8
-9 10 11 12
-13 14 15 0
-
+```sh
+./clear_nb.sh
 ```
 
-# plik wyjściowy
+Ta komenda czyści outputy jupyter notebooka zeby nie commitować ogromnych plików.
 
-- kroki do ułożenia
-np.
-```
-UDLRRR
-```
+Jeśli zapomniałeś ale jeszcze nie spushowałeś to możesz po prostu zrobić `git commit --amend ` itd (w vscode zamiast commit to ↓ i potem "Commit (Amend)")
 
-# plik ze statystykami
-
-- długość znalezionego rozwiązania;
-- liczbę stanów odwiedzonych;
-- liczbę stanów przetworzonych;
-- maksymalną osiągniętą głębokość rekursji;
-- czas trwania procesu obliczeniowego.
-
-np.
-
-```
-6
-100
-50
-7
-0.03
-```
+Jeśli scommitowałeś i spushowałeś, ale sie od razu zorientowałeś (i nie pojawił sie nowy commit na githubie w miedzy czasie) to commit amend (to samo co wyżej) a potem `git push --force`
